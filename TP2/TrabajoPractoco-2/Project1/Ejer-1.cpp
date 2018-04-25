@@ -1,7 +1,10 @@
+#include <SDL.h>
+#include <stdio.h>
 #include <iostream>
 using namespace std;
 
-void main()
+int main(int argc, char* argv[])
 {
-
+	cin.get();
+	return 0;
 }
