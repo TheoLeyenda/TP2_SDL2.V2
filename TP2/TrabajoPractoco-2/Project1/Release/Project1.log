@@ -1,2 +1,1 @@
-﻿  Ejer-1.cpp
-Ejer-1.cpp(1): fatal error C1083: No se puede abrir el archivo incluir: 'SDL.h': No such file or directory
+﻿LINK : fatal error LNK1561: se debe definir el punto de entrada
