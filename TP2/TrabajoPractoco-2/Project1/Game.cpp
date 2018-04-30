@@ -21,8 +21,20 @@ Game::~Game()
 }
 void Game::init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen)
 {
+
 	int flags = 0;
-	bool balaAvanza = false;
+	destRJugador.x = 300;
+	destRJugador.y = 400;
+
+	destREnemigo1.y = -32;
+
+	destREnemigo2.y = -64;
+
+	dibujarEnemigo1 = true;
+	
+	srand(time(0));
+	balaAvanza = false;
+	balaAvanzarEnemigo2 = true;
 	if (fullscreen)
 	{
 		flags = SDL_WINDOW_FULLSCREEN;
@@ -43,13 +55,25 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 			cout<<"el renderer se ha creado"<<endl;
 		}
 		isRunning = true;
-		tmpSurface = IMG_Load("../thumbnail_Avion_1.png");
+		tmpSurface = IMG_Load("../thumbnail_Avion_2.png");
 		texturePlayer = SDL_CreateTextureFromSurface(renderer, tmpSurface);
 		SDL_FreeSurface(tmpSurface);
 
 		tmpSurfaceBala = IMG_Load("../bala1.png");
 		textureBala = SDL_CreateTextureFromSurface(renderer, tmpSurfaceBala);
 		SDL_FreeSurface(tmpSurfaceBala);
+
+		tmpSurfaceEnemigo1 = IMG_Load("../Enemigo_8.png");
+		texturaEnemigo1 = SDL_CreateTextureFromSurface(renderer, tmpSurfaceEnemigo1);
+		SDL_FreeSurface(tmpSurfaceEnemigo1);
+
+		tmpSurfaceEnemigo2 = IMG_Load("../Enemigo_1.png");
+		textureEnemigo2 = SDL_CreateTextureFromSurface(renderer, tmpSurfaceEnemigo2);
+		SDL_FreeSurface(tmpSurfaceEnemigo2);
+
+		tmpSurfaceBalaEnemigo2 = IMG_Load("../bala2.png");
+		textureBalaEnemigo2 = SDL_CreateTextureFromSurface(renderer, tmpSurfaceBalaEnemigo2);
+		SDL_FreeSurface(tmpSurfaceBalaEnemigo2);
 	}
 	else
 	{
@@ -60,23 +84,120 @@ void Game::update()
 {
 	destRJugador.h = 64;
 	destRJugador.w = 64;
+
+	
+
+	//Enemigo1
+	destREnemigo1.h = 32;
+	destREnemigo1.w = 32;
+	if (destREnemigo1.y == -32)
+	{
+		AvionChicoXrand = rand() % 640 - 32;
+		destREnemigo1.x = AvionChicoXrand;
+	}
+	destREnemigo1.y = destREnemigo1.y + velocidadEnemigo1;
+	if (destREnemigo1.y >= 480)
+	{
+		destREnemigo1.y = -32;
+	}
+	//---------------------------------
+
+	//Enemigo2
+	destREnemigo2.h = 64;
+	destREnemigo2.w = 64;
+	
+	if (destREnemigo2.y == -64)
+	{
+		cout << "Entre" << endl;
+		AvionGrandeXrand = rand() % 640 - 64;
+		destREnemigo2.x = AvionGrandeXrand;
+		cout << AvionGrandeXrand;
+
+		if (destREnemigo2.x >= destREnemigo1.x && destREnemigo2.x <= destREnemigo1.x + 16)
+		{
+			destREnemigo2.x = destREnemigo2.x - 32;
+		}
+		if (destREnemigo2.x <= destREnemigo1.x + 32 && destREnemigo2.x >= destREnemigo1.x + 16)
+		{
+			destREnemigo2.x = destREnemigo2.x + 32;
+		}
+	}
+	destREnemigo2.y = destREnemigo2.y + velocidadEnemigo2;
+	if (destREnemigo2.y >= 480)
+	{
+		destREnemigo2.y = -64;
+	}
+	//---------------------------------
+	
+	//BALA ENEMIGO
+	destRBalaEnemigo2.h = 7;
+	destRBalaEnemigo2.w = 3;
+	if (!balaAvanzarEnemigo2)
+	{
+		destRBalaEnemigo2.x = destREnemigo2.x + 31;
+		destRBalaEnemigo2.y = destREnemigo2.y + 32;
+	}
+	if (balaAvanzarEnemigo2)
+	{
+		//cout << "bala enemigo avanza";
+		if (unaVez)
+		{
+			destRBalaEnemigo2.x = destREnemigo2.x + 31;
+			destRBalaEnemigo2.y = destREnemigo2.y + 32;
+			unaVez = false;
+		}
+		destRBalaEnemigo2.y = destRBalaEnemigo2.y + velocidadBalaEnemigo2;
+	}
+	if (destRBalaEnemigo2.y >= 480-7)
+	{
+		balaAvanzarEnemigo2 = true;
+		destRBalaEnemigo2.x = destREnemigo2.x + 31;
+		destRBalaEnemigo2.y = destREnemigo2.y + 32;
+	}
+	//HACER COLICON DE LA BALA DEL ENEMIGO CON EL JUGADOR.
+	//---------------------------------
+	
+	//BALA JUGADOR
 	destRBala.h = 7;
 	destRBala.w = 3;
 	if (!balaAvanza)
 	{
-		destRBala.x = destRJugador.x + 30;
-		destRBala.y = destRJugador.y - 5;
+		destRBala.x = destRJugador.x + 29;
+		destRBala.y = destRJugador.y + 10;
 	}
 	if (balaAvanza)
 	{
-		destRBala.y = destRBala.y - 1;
+		destRBala.y = destRBala.y - 10;
+	}
+	if (destRBala.y < 0)
+	{
+		balaAvanza = false;
+	}
+	//----------------------------------
+
+	//COLICION ENEMIGO 1
+	if (destRBala.y <= destREnemigo1.y && destRBala.x >= destREnemigo1.x && destRBala.x <= destREnemigo1.x + 32)
+	{
+		balaAvanza = false;
+		destREnemigo1.y = -32;
+		//velocidadEnemigo1++;
+	}
+	//COLICIONES ENEMIGO 2
+	if (destRBala.y <= destREnemigo2.y && destRBala.x >= destREnemigo2.x && destRBala.x <= destREnemigo2.x + 64)
+	{
+		balaAvanza = false;
+		destREnemigo2.y = -64;
+		//velocidadEnemigo1++;
 	}
 }
 void Game::render()
 {
 	SDL_RenderClear(renderer);
-	SDL_RenderCopy(renderer, texturePlayer, NULL, &destRJugador);
 	SDL_RenderCopy(renderer, textureBala, NULL, &destRBala);
+	SDL_RenderCopy(renderer, texturePlayer, NULL, &destRJugador);
+	SDL_RenderCopy(renderer, texturaEnemigo1, NULL, &destREnemigo1);
+	SDL_RenderCopy(renderer, textureEnemigo2, NULL, &destREnemigo2);
+	SDL_RenderCopy(renderer, textureBalaEnemigo2, NULL, &destRBalaEnemigo2);
 	SDL_RenderPresent(renderer);
 }
 void Game::clean()
