@@ -1,8 +1,10 @@
-﻿  Game.cpp
-c:\users\theo\desktop\image campus\carrera 1 - desarrollo de videojuegos\2do año\programacion de graficos i\tp2_sdl2.v2\tp2\trabajopractoco-2\project1\game.cpp(39): warning C4244: 'argumento': conversión de 'time_t' a 'unsigned int'; posible pérdida de datos
-c:\users\theo\desktop\image campus\carrera 1 - desarrollo de videojuegos\2do año\programacion de graficos i\tp2_sdl2.v2\tp2\trabajopractoco-2\project1\game.cpp(114): warning C4244: '=': conversión de 'double' a 'int'; posible pérdida de datos
-c:\users\theo\desktop\image campus\carrera 1 - desarrollo de videojuegos\2do año\programacion de graficos i\tp2_sdl2.v2\tp2\trabajopractoco-2\project1\game.cpp(116): warning C4244: '=': conversión de 'double' a 'int'; posible pérdida de datos
-c:\users\theo\desktop\image campus\carrera 1 - desarrollo de videojuegos\2do año\programacion de graficos i\tp2_sdl2.v2\tp2\trabajopractoco-2\project1\game.cpp(131): warning C4244: '=': conversión de 'double' a 'int'; posible pérdida de datos
-c:\users\theo\desktop\image campus\carrera 1 - desarrollo de videojuegos\2do año\programacion de graficos i\tp2_sdl2.v2\tp2\trabajopractoco-2\project1\game.cpp(142): warning C4244: '=': conversión de 'double' a 'int'; posible pérdida de datos
-c:\users\theo\desktop\image campus\carrera 1 - desarrollo de videojuegos\2do año\programacion de graficos i\tp2_sdl2.v2\tp2\trabajopractoco-2\project1\game.cpp(166): warning C4244: '=': conversión de 'double' a 'int'; posible pérdida de datos
+﻿  Ejer-1.cpp
+  Game.cpp
+c:\users\theo\desktop\image campus\carrera 1 - desarrollo de videojuegos\2do año\programacion de graficos i\tp2_sdl2.v2\tp2\trabajopractoco-2\project1\game.cpp(41): warning C4244: 'argumento': conversión de 'time_t' a 'unsigned int'; posible pérdida de datos
+c:\users\theo\desktop\image campus\carrera 1 - desarrollo de videojuegos\2do año\programacion de graficos i\tp2_sdl2.v2\tp2\trabajopractoco-2\project1\game.cpp(139): warning C4244: '=': conversión de 'double' a 'int'; posible pérdida de datos
+c:\users\theo\desktop\image campus\carrera 1 - desarrollo de videojuegos\2do año\programacion de graficos i\tp2_sdl2.v2\tp2\trabajopractoco-2\project1\game.cpp(141): warning C4244: '=': conversión de 'double' a 'int'; posible pérdida de datos
+c:\users\theo\desktop\image campus\carrera 1 - desarrollo de videojuegos\2do año\programacion de graficos i\tp2_sdl2.v2\tp2\trabajopractoco-2\project1\game.cpp(156): warning C4244: '=': conversión de 'double' a 'int'; posible pérdida de datos
+c:\users\theo\desktop\image campus\carrera 1 - desarrollo de videojuegos\2do año\programacion de graficos i\tp2_sdl2.v2\tp2\trabajopractoco-2\project1\game.cpp(167): warning C4244: '=': conversión de 'double' a 'int'; posible pérdida de datos
+c:\users\theo\desktop\image campus\carrera 1 - desarrollo de videojuegos\2do año\programacion de graficos i\tp2_sdl2.v2\tp2\trabajopractoco-2\project1\game.cpp(191): warning C4244: '=': conversión de 'double' a 'int'; posible pérdida de datos
+  Generando código...
   Project1.vcxproj -> C:\Users\Theo\Desktop\image campus\carrera 1 - Desarrollo de videojuegos\2do año\programacion de graficos I\TP2_SDL2.V2\TP2\TrabajoPractoco-2\x64\Debug\Project1.exe
