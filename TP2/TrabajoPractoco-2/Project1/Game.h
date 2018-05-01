@@ -13,12 +13,20 @@ using namespace std;
 class Game
 {
 private:
+	bool entrarEnJuego;
 	double AvionChicoXrand;
 	double AvionGrandeXrand;
 	bool balaAvanza;
 	bool balaAvanzarEnemigo2;
 	bool unaVez = true;
 	bool isRunning;
+
+	bool muestraGameOver = false;
+	bool muestraMenu = false;
+	bool muestraControles = false;
+	bool muestraCreditos = false;
+	bool muestraJuego = false;
+
 	SDL_Event event;
 	SDL_Window* window;
 	SDL_Renderer* renderer;
@@ -58,6 +66,36 @@ private:
 	SDL_Rect srcRBalaEnemigo2;
 	SDL_Rect destRBalaEnemigo2;
 	double velocidadBalaEnemigo2 = 5;
+
+	//fondo Juego
+	SDL_Texture* textureFondoJuego;
+	SDL_Surface* tmpSurfaceFondoJuego;
+	SDL_Rect srcRFondoJuego;
+	SDL_Rect destRFondoJuego;
+
+	//fondo inicio o menu
+	SDL_Texture* textureFondoMenu;
+	SDL_Surface* tmpSurfaceFondoMenu;
+	SDL_Rect srcRFondoMenu;
+	SDL_Rect destFondoRMenu;
+
+	//fondo controles
+	SDL_Texture* textureFondoControles;
+	SDL_Surface* tmpSurfaceFondoControles;
+	SDL_Rect srcRFondoControles;
+	SDL_Rect destRFondoControles;
+	
+	//fondo game over
+	SDL_Texture* textureFondoGameOver;
+	SDL_Surface* tmpSurfaceFondoGameOver;
+	SDL_Rect serRFondoGameOver;
+	SDL_Rect destRFondoGameOver;
+
+	//fondo Creditos
+	SDL_Texture* textureFondoCreditos;
+	SDL_Surface* tmpSurfaceFondoCreditos;
+	SDL_Rect serRFondoCreditos;
+	SDL_Rect destRFondoCreditos;
 
 public:
 	Game();

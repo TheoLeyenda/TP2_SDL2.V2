@@ -21,6 +21,12 @@ Game::~Game()
 }
 void Game::init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen)
 {
+	entrarEnJuego = false;
+	muestraGameOver = false;
+	muestraMenu = true;
+	muestraJuego = false;
+	muestraControles = false;
+	muestraCreditos = false;
 
 	int flags = 0;
 	destRJugador.x = 320-32;
@@ -74,6 +80,26 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 		tmpSurfaceBalaEnemigo2 = IMG_Load("../bala2.png");
 		textureBalaEnemigo2 = SDL_CreateTextureFromSurface(renderer, tmpSurfaceBalaEnemigo2);
 		SDL_FreeSurface(tmpSurfaceBalaEnemigo2);
+
+		tmpSurfaceFondoJuego = IMG_Load("../paisajeFondo_op4.jpg");
+		textureFondoJuego = SDL_CreateTextureFromSurface(renderer, tmpSurfaceFondoJuego);
+		SDL_FreeSurface(tmpSurfaceFondoJuego);
+
+		tmpSurfaceFondoMenu = IMG_Load("../Menu1.jpg");
+		textureFondoMenu = SDL_CreateTextureFromSurface(renderer, tmpSurfaceFondoMenu);
+		SDL_FreeSurface(tmpSurfaceFondoMenu);
+
+		tmpSurfaceFondoControles = IMG_Load("../Controles.jpg");
+		textureFondoControles = SDL_CreateTextureFromSurface(renderer, tmpSurfaceFondoControles);
+		SDL_FreeSurface(tmpSurfaceFondoControles);
+
+		tmpSurfaceFondoGameOver = IMG_Load("../GameOver_op1.jpg");
+		textureFondoGameOver = SDL_CreateTextureFromSurface(renderer, tmpSurfaceFondoGameOver);
+		SDL_FreeSurface(tmpSurfaceFondoGameOver);
+
+		tmpSurfaceFondoCreditos = IMG_Load("../Creditos2.jpg");
+		textureFondoCreditos = SDL_CreateTextureFromSurface(renderer, tmpSurfaceFondoCreditos);
+		SDL_FreeSurface(tmpSurfaceFondoCreditos);
 	}
 	else
 	{
@@ -84,9 +110,26 @@ void Game::update()
 {
 	destRJugador.h = 64;
 	destRJugador.w = 64;
-
-	
-
+	//Fondo juego
+	destRFondoJuego.w = 640;
+	destRFondoJuego.h = 480;
+	//-----------------------------------------------------
+	//Fondo Menu
+	destFondoRMenu.w = 640;
+	destFondoRMenu.h = 480;
+	//-------------------------------------------
+	//Fondo Controles
+	destRFondoControles.w = 640;
+	destRFondoControles.h = 480;
+	//----------------------------------------
+	//Fondo GameOver
+	destRFondoGameOver.w = 640;
+	destRFondoGameOver.h = 480;
+	//----------------------------------------
+	//Fondo Creditos
+	destRFondoCreditos.w = 640;
+	destRFondoCreditos.h = 480;
+	//----------------------------------------
 	//Enemigo1
 	destREnemigo1.h = 48;
 	destREnemigo1.w = 48;
@@ -234,9 +277,15 @@ void Game::update()
 	//-------------------------------
 
 
-	if (vidasJugador == 0)
+	if (vidasJugador == 0 && muestraJuego)
 	{
 		cout <<endl<< "Game Over" << endl;
+		muestraJuego = false;
+		muestraGameOver = true;
+		muestraMenu = false;
+		muestraControles = false;
+		muestraCreditos = false;
+		entrarEnJuego = false;
 		vidasJugador = -1;
 	}
 
@@ -244,14 +293,34 @@ void Game::update()
 void Game::render()
 {
 	SDL_RenderClear(renderer);
-	if (vidasJugador > 0)
+	if (muestraCreditos)
 	{
-		SDL_RenderCopy(renderer, textureBala, NULL, &destRBala);
-		SDL_RenderCopy(renderer, texturePlayer, NULL, &destRJugador);
+		SDL_RenderCopy(renderer, textureFondoCreditos, NULL, &destRFondoCreditos);
 	}
-	SDL_RenderCopy(renderer, texturaEnemigo1, NULL, &destREnemigo1);
-	SDL_RenderCopy(renderer, textureEnemigo2, NULL, &destREnemigo2);
-	SDL_RenderCopy(renderer, textureBalaEnemigo2, NULL, &destRBalaEnemigo2);
+	if (muestraGameOver)
+	{
+		SDL_RenderCopy(renderer, textureFondoGameOver, NULL, &destRFondoGameOver);
+	}
+	if (muestraControles)
+	{
+		SDL_RenderCopy(renderer, textureFondoControles, NULL, &destRFondoControles);
+	}
+	if (muestraMenu)
+	{
+		SDL_RenderCopy(renderer, textureFondoMenu, NULL, &destFondoRMenu);
+	}
+	if (muestraJuego)
+	{
+		SDL_RenderCopy(renderer, textureFondoJuego, NULL, &destRFondoJuego);
+		if (vidasJugador > 0)
+		{
+			SDL_RenderCopy(renderer, textureBala, NULL, &destRBala);
+			SDL_RenderCopy(renderer, texturePlayer, NULL, &destRJugador);
+		}
+		SDL_RenderCopy(renderer, texturaEnemigo1, NULL, &destREnemigo1);
+		SDL_RenderCopy(renderer, textureEnemigo2, NULL, &destREnemigo2);
+		SDL_RenderCopy(renderer, textureBalaEnemigo2, NULL, &destRBalaEnemigo2);
+	}
 	SDL_RenderPresent(renderer);
 }
 void Game::clean()
@@ -266,33 +335,129 @@ void Game::handlEvent() {
 	SDL_PollEvent(&event);
 	if (event.type == SDL_KEYDOWN)
 	{
-		switch (event.key.keysym.sym)
+		if (muestraCreditos)
 		{
-		case SDLK_SPACE:
-			balaAvanza = true;
-			break;
-		case SDLK_ESCAPE:
-			isRunning = false;
-			break;
-		case SDLK_DOWN:
-			destRJugador.y = destRJugador.y + 10;
-			break;
-		case SDLK_UP:
-			destRJugador.y = destRJugador.y - 10;
-			break;
-		case SDLK_LEFT:
-			destRJugador.x = destRJugador.x - 10;
-			break;
-		case SDLK_RIGHT:
-			destRJugador.x = destRJugador.x + 10;
-			break;
-		case SDLK_r:
-			if (vidasJugador <= 0)
+			switch (event.key.keysym.sym)
 			{
-				vidasJugador = 3;
+			case SDLK_z:
+				muestraJuego = false;
+				muestraGameOver = false;
+				muestraMenu = true;
+				muestraControles = false;
+				muestraCreditos = false;
+				break;
+				case SDLK_ESCAPE:
+					isRunning = false;
+					break;
 			}
-		default:
-			break;
+		}
+		if (muestraGameOver)
+		{
+			switch (event.key.keysym.sym)
+			{
+				case SDLK_s:
+					muestraJuego = false;
+					muestraGameOver = false;
+					muestraMenu = true;
+					muestraControles = false;
+					muestraCreditos = false;
+					break;
+				case SDLK_r:
+					vidasJugador = 3;
+					destREnemigo1.y = -48;
+					destREnemigo2.y = -64;
+					muestraJuego = true;
+					muestraGameOver = false;
+					muestraMenu = false;
+					muestraControles = false;
+					muestraCreditos = false;
+					break;
+				case SDLK_ESCAPE:
+					isRunning = false;
+					break;
+			}
+		}
+		if (muestraMenu)
+		{
+			switch (event.key.keysym.sym)
+			{
+				case SDLK_1:
+					vidasJugador = 3;
+					destREnemigo1.y = -48;
+					destREnemigo2.y = -64;
+					muestraJuego = true;
+					muestraGameOver = false;
+					muestraMenu = false;
+					muestraControles = false;
+					muestraCreditos = false;
+				break;
+
+				case SDLK_2:
+					muestraJuego = false;
+					muestraGameOver = false;
+					muestraMenu = false;
+					muestraControles = true;
+					muestraCreditos = false;
+					break;
+				case SDLK_3:
+					muestraJuego = false;
+					muestraGameOver = false;
+					muestraMenu = false;
+					muestraControles = false;
+					muestraCreditos = true;
+					break;
+				case SDLK_ESCAPE:
+					isRunning = false;
+				break;
+			}
+		}
+		if (muestraControles)
+		{
+			switch (event.key.keysym.sym)
+			{
+				case SDLK_z:
+					muestraJuego = false;
+					muestraGameOver = false;
+					muestraMenu = true;
+					muestraControles = false;
+					muestraCreditos = false;
+				break;
+				case SDLK_ESCAPE:
+					isRunning = false;
+				break;
+			}
+
+		}
+		if (muestraJuego)
+		{
+			switch (event.key.keysym.sym)
+			{
+			case SDLK_SPACE:
+				balaAvanza = true;
+				break;
+			case SDLK_ESCAPE:
+				isRunning = false;
+				break;
+			case SDLK_DOWN:
+				destRJugador.y = destRJugador.y + 15;
+				break;
+			case SDLK_UP:
+				destRJugador.y = destRJugador.y - 15;
+				break;
+			case SDLK_LEFT:
+				destRJugador.x = destRJugador.x - 15;
+				break;
+			case SDLK_RIGHT:
+				destRJugador.x = destRJugador.x + 15;
+				break;
+			case SDLK_r:
+				if (vidasJugador <= 0)
+				{
+					vidasJugador = 3;
+				}
+			default:
+				break;
+			}
 		}
 	}
 }
