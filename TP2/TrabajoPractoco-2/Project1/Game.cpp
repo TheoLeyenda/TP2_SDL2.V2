@@ -265,33 +265,36 @@ void Game::clean()
 void Game::handlEvent() {
 	SDL_Event event;
 	SDL_PollEvent(&event);
-	switch (event.key.keysym.sym)
+	if (event.type == SDL_KEYDOWN)
 	{
-			case SDLK_SPACE:
-				balaAvanza = true;
+		switch (event.key.keysym.sym)
+		{
+		case SDLK_SPACE:
+			balaAvanza = true;
 			break;
-			case SDLK_ESCAPE:
-				isRunning = false;
-				break;
-			case SDLK_DOWN:
-				destRJugador.y = destRJugador.y + 15;
-				break;
-			case SDLK_UP:
-				destRJugador.y = destRJugador.y - 15;
-				break;
-			case SDLK_LEFT:
-				destRJugador.x = destRJugador.x - 15;
-				break;
-			case SDLK_RIGHT:
-				destRJugador.x = destRJugador.x + 15;
-				break;
-			case SDLK_r:
-				if (vidasJugador <= 0)
-				{
-					vidasJugador = 3;
-				}
-			default:
-				break;
+		case SDLK_ESCAPE:
+			isRunning = false;
+			break;
+		case SDLK_DOWN:
+			destRJugador.y = destRJugador.y + 10;
+			break;
+		case SDLK_UP:
+			destRJugador.y = destRJugador.y - 10;
+			break;
+		case SDLK_LEFT:
+			destRJugador.x = destRJugador.x - 10;
+			break;
+		case SDLK_RIGHT:
+			destRJugador.x = destRJugador.x + 10;
+			break;
+		case SDLK_r:
+			if (vidasJugador <= 0)
+			{
+				vidasJugador = 3;
+			}
+		default:
+			break;
+		}
 	}
 }
 bool Game::running()

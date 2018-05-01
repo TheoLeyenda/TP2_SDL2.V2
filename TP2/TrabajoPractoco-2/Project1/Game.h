@@ -19,9 +19,10 @@ private:
 	bool balaAvanzarEnemigo2;
 	bool unaVez = true;
 	bool isRunning;
+	SDL_Event event;
 	SDL_Window* window;
 	SDL_Renderer* renderer;
-
+	SDL_Keysym* Key;
 	//Jugador
 	SDL_Texture* texturePlayer;
 	SDL_Surface* tmpSurface;
