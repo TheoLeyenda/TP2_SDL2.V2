@@ -10,7 +10,7 @@ void handlEvents();
 bool running();
 };
 */
-
+// SE GUARDO CON BALA ENEMIGA RETOCADA
 #include "Game.h"
 
 Game::Game()
@@ -65,7 +65,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 		texturePlayer = SDL_CreateTextureFromSurface(renderer, tmpSurface);
 		SDL_FreeSurface(tmpSurface);
 
-		tmpSurfaceBala = IMG_Load("../bala1.png");
+		tmpSurfaceBala = IMG_Load("../Bala1.png");
 		textureBala = SDL_CreateTextureFromSurface(renderer, tmpSurfaceBala);
 		SDL_FreeSurface(tmpSurfaceBala);
 
@@ -77,7 +77,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 		textureEnemigo2 = SDL_CreateTextureFromSurface(renderer, tmpSurfaceEnemigo2);
 		SDL_FreeSurface(tmpSurfaceEnemigo2);
 
-		tmpSurfaceBalaEnemigo2 = IMG_Load("../bala2.png");
+		tmpSurfaceBalaEnemigo2 = IMG_Load("../balaEnemigo.png");
 		textureBalaEnemigo2 = SDL_CreateTextureFromSurface(renderer, tmpSurfaceBalaEnemigo2);
 		SDL_FreeSurface(tmpSurfaceBalaEnemigo2);
 
