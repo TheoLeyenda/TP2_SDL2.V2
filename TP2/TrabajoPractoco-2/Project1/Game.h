@@ -27,6 +27,7 @@ private:
 	SDL_Surface* tmpSurface;
 	SDL_Rect srcRJugador;
 	SDL_Rect destRJugador;
+	int vidasJugador = 3;
 
 	//Bala del jugador
 	SDL_Texture* textureBala;

@@ -1,3 +1,5 @@
+//SE GUARDO CON COLICIONES
+
 #include <iostream>
 #include "Game.h"
 using namespace std;
@@ -13,6 +15,7 @@ int main(int argc, char* argv[]) {
 
 	game = new Game();
 	game->init("Avioncitos", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 640, 480, false);
+	SDL_Delay(1000);
 	while (game->running())
 	{
 

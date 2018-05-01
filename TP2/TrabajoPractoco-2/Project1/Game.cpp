@@ -23,7 +23,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 {
 
 	int flags = 0;
-	destRJugador.x = 300;
+	destRJugador.x = 320-32;
 	destRJugador.y = 400;
 
 	destREnemigo1.y = -32;
@@ -88,17 +88,17 @@ void Game::update()
 	
 
 	//Enemigo1
-	destREnemigo1.h = 32;
-	destREnemigo1.w = 32;
-	if (destREnemigo1.y == -32)
+	destREnemigo1.h = 48;
+	destREnemigo1.w = 48;
+	if (destREnemigo1.y == -48)
 	{
-		AvionChicoXrand = rand() % 640 - 32;
+		AvionChicoXrand = rand() % 640 - 48;
 		destREnemigo1.x = AvionChicoXrand;
 	}
 	destREnemigo1.y = destREnemigo1.y + velocidadEnemigo1;
 	if (destREnemigo1.y >= 480)
 	{
-		destREnemigo1.y = -32;
+		destREnemigo1.y = -48;
 	}
 	//---------------------------------
 
@@ -108,18 +108,18 @@ void Game::update()
 	
 	if (destREnemigo2.y == -64)
 	{
-		cout << "Entre" << endl;
+		//cout << "Entre" << endl;
 		AvionGrandeXrand = rand() % 640 - 64;
 		destREnemigo2.x = AvionGrandeXrand;
 		cout << AvionGrandeXrand;
 
 		if (destREnemigo2.x >= destREnemigo1.x && destREnemigo2.x <= destREnemigo1.x + 16)
 		{
-			destREnemigo2.x = destREnemigo2.x - 32;
+			destREnemigo2.x = destREnemigo2.x - 48;
 		}
 		if (destREnemigo2.x <= destREnemigo1.x + 32 && destREnemigo2.x >= destREnemigo1.x + 16)
 		{
-			destREnemigo2.x = destREnemigo2.x + 32;
+			destREnemigo2.x = destREnemigo2.x + 48;
 		}
 	}
 	destREnemigo2.y = destREnemigo2.y + velocidadEnemigo2;
@@ -143,7 +143,7 @@ void Game::update()
 		if (unaVez)
 		{
 			destRBalaEnemigo2.x = destREnemigo2.x + 31;
-			destRBalaEnemigo2.y = destREnemigo2.y + 32;
+			destRBalaEnemigo2.y = destREnemigo2.y + 64;
 			unaVez = false;
 		}
 		destRBalaEnemigo2.y = destRBalaEnemigo2.y + velocidadBalaEnemigo2;
@@ -152,10 +152,8 @@ void Game::update()
 	{
 		balaAvanzarEnemigo2 = true;
 		destRBalaEnemigo2.x = destREnemigo2.x + 31;
-		destRBalaEnemigo2.y = destREnemigo2.y + 32;
+		destRBalaEnemigo2.y = destREnemigo2.y + 64;
 	}
-	//HACER COLICON DE LA BALA DEL ENEMIGO CON EL JUGADOR.
-	//---------------------------------
 	
 	//BALA JUGADOR
 	destRBala.h = 7;
@@ -163,7 +161,7 @@ void Game::update()
 	if (!balaAvanza)
 	{
 		destRBala.x = destRJugador.x + 29;
-		destRBala.y = destRJugador.y + 10;
+		destRBala.y = destRJugador.y + 16;
 	}
 	if (balaAvanza)
 	{
@@ -175,26 +173,83 @@ void Game::update()
 	}
 	//----------------------------------
 
+	//COLICIONES ENEMIGO 1 JUGADOR
+	if (destRJugador.x + 64 >= destREnemigo2.x && destRJugador.x <= destREnemigo1.x + 48 && destREnemigo1.y + 48 >= destRJugador.y && destREnemigo1.y < destRJugador.y)
+	{
+		destRJugador.x = 320 - 32;
+		destRJugador.y = 400;
+
+		destREnemigo1.y = -32;
+		vidasJugador--;
+	}
+	//--------------------------------
+
+	//COLICIONES ENEMIGO 2 JUGADOR
+	if (destRJugador.x + 64 >= destREnemigo2.x && destRJugador.x <= destREnemigo2.x + 64 && destRJugador.y <= destREnemigo2.y + 64 && destRJugador.y + 64 > destREnemigo2.y)
+	{
+		destRJugador.x = 320 - 32;
+		destRJugador.y = 400;
+
+		destREnemigo2.y = -64;
+		vidasJugador--;
+
+	}
+	//-------------------------------
+
 	//COLICION ENEMIGO 1
-	if (destRBala.y <= destREnemigo1.y && destRBala.x >= destREnemigo1.x && destRBala.x <= destREnemigo1.x + 32)
+	if (destRBala.y >= destREnemigo1.y && destRBala.y < destREnemigo1.y + 48 && destRBala.x >= destREnemigo1.x && destRBala.x <= destREnemigo1.x + 48)
 	{
 		balaAvanza = false;
-		destREnemigo1.y = -32;
+		destREnemigo1.y = -48;
 		//velocidadEnemigo1++;
 	}
 	//COLICIONES ENEMIGO 2
-	if (destRBala.y <= destREnemigo2.y && destRBala.x >= destREnemigo2.x && destRBala.x <= destREnemigo2.x + 64)
+	if (destRBala.y >= destREnemigo2.y && destRBala.y < destREnemigo2.y +64 && destRBala.x >= destREnemigo2.x && destRBala.x <= destREnemigo2.x + 64)
 	{
 		balaAvanza = false;
 		destREnemigo2.y = -64;
 		//velocidadEnemigo1++;
 	}
+	
+	
+
+	//COLICION BALA ENEMIGO JUGADOR
+	if (destRJugador.y <= destRBalaEnemigo2.y + 7 && destRJugador.y + 64 > destRBalaEnemigo2.y && destRBalaEnemigo2.x <= destRJugador.x + 64 && destRBalaEnemigo2.x >= destRJugador.x )
+	{
+		destRJugador.x = 320 - 32;
+		destRJugador.y = 400;
+
+		destRBalaEnemigo2.x = destREnemigo2.x + 31;
+		destRBalaEnemigo2.y = destREnemigo2.y + 32;
+		vidasJugador--;
+	}
+	//-------------------------------
+
+	//COLICIONES BALA JUGADOR BALA ENEMIGA
+	if (destRBala.y <= destRBalaEnemigo2.y && destRBala.x >= destRBalaEnemigo2.x && destRBala.x <= destRBalaEnemigo2.x + 3 || (destRBalaEnemigo2.y >= destRBala.y) && (destRBalaEnemigo2.x >= destRBala.x) && (destRBalaEnemigo2.x <= destRBala.x + 3))
+	{
+		destRBalaEnemigo2.x = destREnemigo2.x + 31;
+		destRBalaEnemigo2.y = destREnemigo2.y + 32;
+		balaAvanza = false;
+	}
+	//-------------------------------
+
+
+	if (vidasJugador == 0)
+	{
+		cout <<endl<< "Game Over" << endl;
+		vidasJugador = -1;
+	}
+
 }
 void Game::render()
 {
 	SDL_RenderClear(renderer);
-	SDL_RenderCopy(renderer, textureBala, NULL, &destRBala);
-	SDL_RenderCopy(renderer, texturePlayer, NULL, &destRJugador);
+	if (vidasJugador > 0)
+	{
+		SDL_RenderCopy(renderer, textureBala, NULL, &destRBala);
+		SDL_RenderCopy(renderer, texturePlayer, NULL, &destRJugador);
+	}
 	SDL_RenderCopy(renderer, texturaEnemigo1, NULL, &destREnemigo1);
 	SDL_RenderCopy(renderer, textureEnemigo2, NULL, &destREnemigo2);
 	SDL_RenderCopy(renderer, textureBalaEnemigo2, NULL, &destRBalaEnemigo2);
@@ -219,17 +274,22 @@ void Game::handlEvent() {
 				isRunning = false;
 				break;
 			case SDLK_DOWN:
-				destRJugador.y = destRJugador.y + 10;
+				destRJugador.y = destRJugador.y + 15;
 				break;
 			case SDLK_UP:
-				destRJugador.y = destRJugador.y - 10;
+				destRJugador.y = destRJugador.y - 15;
 				break;
 			case SDLK_LEFT:
-				destRJugador.x = destRJugador.x - 10;
+				destRJugador.x = destRJugador.x - 15;
 				break;
 			case SDLK_RIGHT:
-				destRJugador.x = destRJugador.x + 10;
+				destRJugador.x = destRJugador.x + 15;
 				break;
+			case SDLK_r:
+				if (vidasJugador <= 0)
+				{
+					vidasJugador = 3;
+				}
 			default:
 				break;
 	}
