@@ -111,7 +111,6 @@ void Game::update()
 		//cout << "Entre" << endl;
 		AvionGrandeXrand = rand() % 640 - 64;
 		destREnemigo2.x = AvionGrandeXrand;
-		cout << AvionGrandeXrand;
 
 		if (destREnemigo2.x >= destREnemigo1.x && destREnemigo2.x <= destREnemigo1.x + 16)
 		{

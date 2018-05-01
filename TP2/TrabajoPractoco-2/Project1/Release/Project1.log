@@ -3,11 +3,11 @@ c:\users\theo\desktop\image campus\carrera 1 - desarrollo de videojuegos\2do añ
 c:\users\theo\desktop\image campus\carrera 1 - desarrollo de videojuegos\2do año\programacion de graficos i\tp2_sdl2.v2\tp2\trabajopractoco-2\project1\game.cpp(96): warning C4244: '=': conversión de 'double' a 'int'; posible pérdida de datos
 c:\users\theo\desktop\image campus\carrera 1 - desarrollo de videojuegos\2do año\programacion de graficos i\tp2_sdl2.v2\tp2\trabajopractoco-2\project1\game.cpp(98): warning C4244: '=': conversión de 'double' a 'int'; posible pérdida de datos
 c:\users\theo\desktop\image campus\carrera 1 - desarrollo de videojuegos\2do año\programacion de graficos i\tp2_sdl2.v2\tp2\trabajopractoco-2\project1\game.cpp(113): warning C4244: '=': conversión de 'double' a 'int'; posible pérdida de datos
-c:\users\theo\desktop\image campus\carrera 1 - desarrollo de videojuegos\2do año\programacion de graficos i\tp2_sdl2.v2\tp2\trabajopractoco-2\project1\game.cpp(125): warning C4244: '=': conversión de 'double' a 'int'; posible pérdida de datos
-c:\users\theo\desktop\image campus\carrera 1 - desarrollo de videojuegos\2do año\programacion de graficos i\tp2_sdl2.v2\tp2\trabajopractoco-2\project1\game.cpp(149): warning C4244: '=': conversión de 'double' a 'int'; posible pérdida de datos
+c:\users\theo\desktop\image campus\carrera 1 - desarrollo de videojuegos\2do año\programacion de graficos i\tp2_sdl2.v2\tp2\trabajopractoco-2\project1\game.cpp(124): warning C4244: '=': conversión de 'double' a 'int'; posible pérdida de datos
+c:\users\theo\desktop\image campus\carrera 1 - desarrollo de videojuegos\2do año\programacion de graficos i\tp2_sdl2.v2\tp2\trabajopractoco-2\project1\game.cpp(148): warning C4244: '=': conversión de 'double' a 'int'; posible pérdida de datos
   Generando código
-  2 of 20 functions (10.0%) were compiled, the rest were copied from previous compilation.
+  5 of 20 functions (25.0%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    0 functions had inline decision re-evaluated but remain unchanged
+    6 functions had inline decision re-evaluated but remain unchanged
   Generación de código finalizada
   Project1.vcxproj -> C:\Users\Theo\Desktop\image campus\carrera 1 - Desarrollo de videojuegos\2do año\programacion de graficos I\TP2_SDL2.V2\TP2\TrabajoPractoco-2\Release\Project1.exe

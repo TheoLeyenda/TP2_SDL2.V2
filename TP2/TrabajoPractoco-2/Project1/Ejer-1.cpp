@@ -1,5 +1,5 @@
 //SE GUARDO CON COLICIONES
-
+//SE GUARDO COMPATIBLE CON TODOS LOS RELEASE Y TODOS LOS DEBUG
 #include <iostream>
 #include "Game.h"
 using namespace std;
