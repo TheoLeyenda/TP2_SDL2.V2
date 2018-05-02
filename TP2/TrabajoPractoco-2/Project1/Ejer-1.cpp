@@ -5,6 +5,11 @@
 //SE GUARDO CON CONTROLES, CREDITOS, MENU Y GAME OVER
 #include <iostream>
 #include "Game.h"
+#ifdef DEBUG
+	#include "vld.h"
+	#include "vld_def.h"
+#endif
+
 using namespace std;
 
 Game *game = nullptr;
@@ -36,6 +41,6 @@ int main(int argc, char* argv[]) {
 		}
 	}
 	game->clean();
-
+	delete game;
 	return 0;
 }
